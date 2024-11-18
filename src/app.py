@@ -29,8 +29,8 @@ def get_user(username):
     conn = get_db_connection()
     cursor = conn.cursor()
     # Unsafe SQL query
-    query = f"SELECT * FROM users WHERE username = '{username}'"
-    cursor.execute(query)
+    query = "SELECT * FROM users WHERE username = ?"
+    cursor.execute(query, (username,))
     user = cursor.fetchone()
     conn.close()
     return jsonify({"user": user})
