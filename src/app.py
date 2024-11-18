@@ -2,6 +2,7 @@
 from flask import Flask, request, jsonify
 import sqlite3
 import yaml
+import json
 import pickle
 import os
 from werkzeug.security import generate_password_hash
@@ -39,8 +40,8 @@ def get_user(username):
 @app.route('/load_data', methods=['POST'])
 def load_data():
     data = request.get_data()
-    # Unsafe pickle deserialization
-    return pickle.loads(data)
+    # Safe JSON deserialization
+    return json.loads(data)
 
 # Vulnerability 5: Path traversal vulnerability
 @app.route('/get_file/<path>')
