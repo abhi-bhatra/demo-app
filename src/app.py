@@ -8,10 +8,6 @@ from werkzeug.security import generate_password_hash
 
 app = Flask(__name__)
 
-# Vulnerability 1: Hardcoded credentials
-DB_PASSWORD = "super_secret_password123"
-API_KEY = "1234567890abcdef"
-
 # Vulnerability 2: Insecure database connection
 def get_db_connection():
     conn = sqlite3.connect('database.db')
