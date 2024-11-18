@@ -54,8 +54,8 @@ def get_file(path):
 @app.route('/parse_config', methods=['POST'])
 def parse_config():
     config_data = request.get_data().decode('utf-8')
-    # Unsafe YAML parsing
-    return yaml.load(config_data, Loader=yaml.Loader)
+    # Safe YAML parsing
+    return yaml.safe_load(config_data)
 
 # Vulnerability 7: Weak password hashing
 @app.route('/register', methods=['POST'])
