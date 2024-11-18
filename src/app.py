@@ -8,9 +8,20 @@ from werkzeug.security import generate_password_hash
 
 app = Flask(__name__)
 
+# Vulnerability 1: Hardcoded sensitive data
+SECRET_KEY = "hardcoded_super_secret_key"  # Intentionally exposed secret
+DATABASE_PASSWORD = "hardcoded_db_password"  # Another exposed sensitive credential
+
+# Using the secret key in an unsafe way
+@app.route('/get_secret')
+def get_secret():
+    # Return the secret key directly, simulating an insecure use of secrets
+    return jsonify({"secret_key": SECRET_KEY})
+
 # Vulnerability 2: Insecure database connection
 def get_db_connection():
-    conn = sqlite3.connect('database.db')
+    # Using the exposed database password in the connection (simulated usage)
+    conn = sqlite3.connect(f"file:database.db?password={DATABASE_PASSWORD}", uri=True)
     return conn
 
 # Vulnerability 3: SQL Injection vulnerability
