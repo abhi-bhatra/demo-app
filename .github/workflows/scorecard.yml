@@ -1,0 +1,24 @@
+name: "Scorecard Supply-chain Security"
+
+on:
+  schedule:
+    - cron: '0 2 * * 0'  # Weekly scan on Sundays at 2 AM UTC
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  scorecard:
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write  # Required for publishing results
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Run Scorecard Analysis
+        uses: ossf/scorecard-action@v2
+        with:
+          results_file: results.sarif  # Save results in SARIF format
+          results_format: sarif
+          publish_results: true  # Publish results in the Security tab
