@@ -8,9 +8,8 @@ from werkzeug.security import generate_password_hash
 
 app = Flask(__name__)
 
-# Vulnerability 1: Hardcoded sensitive data
-SECRET_KEY = "hardcoded_super_secret_key"  # Intentionally exposed secret
-DATABASE_PASSWORD = "hardcoded_db_password"  # Another exposed sensitive credential
+SECRET_KEY = "hardcoded_super_secret_key"
+DATABASE_PASSWORD = "hardcoded_db_password"
 
 # Using the secret key in an unsafe way
 @app.route('/get_secret')
